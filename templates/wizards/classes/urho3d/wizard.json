@@ -1,0 +1,120 @@
+{
+    "version": 1,
+    "kind": "file",
+    "id": "A.Urho3DClass",
+    "category": "O.Urho3D",
+    "trDescription": "Creates a C++ header and a source file for a new class that you can add to an Urho3D project.",
+    "trDisplayName": "Urho3D C++ Class",
+    "trDisplayCategory": "Urho3D",
+    "icon": "urho3d.png",
+    "enabled": "%{JS: [ %{Plugins} ].indexOf('CppEditor') >= 0}",
+
+    "options":
+    [
+        { "key": "TargetPath", "value": "%{Path}" },
+        { "key": "HdrPath", "value": "%{Path}/%{HdrFileName}" },
+        { "key": "SrcPath", "value": "%{Path}/%{SrcFileName}" },
+        { "key": "CN", "value": "%{JS: Cpp.className('%{Class}')}" },
+        { "key": "Base", "value": "%{JS: ( '%{BaseCB}' === '' ) ? '%{BaseEdit}' : '%{BaseCB}'}" },
+        { "key": "isUrho3DClass", "value": "%{JS: [ 'Object', 'Component', 'LogicComponent', 'Drawable', 'Application'].indexOf('%{Base}') >= 0 }" },        
+		{ "key": "GUARD", "value": "%{JS: Cpp.classToHeaderGuard('%{Class}', '%{JS: Util.preferredSuffix('text/x-c++hdr')}')}" }
+    ],
+
+    "pages":
+    [
+        {
+            "trDisplayName": "Define Class",
+            "trShortTitle": "Details",
+            "typeId": "Fields",
+            "data" :
+            [
+                {
+                    "name": "Class",
+                    "trDisplayName": "Class name:",
+                    "mandatory": true,
+                    "type": "LineEdit",
+                    "data": { "validator": "(?:(?:[a-zA-Z_][a-zA-Z_0-9]*::)+[a-zA-Z_][a-zA-Z_0-9]*|)" }
+                },
+                {
+                    "name": "BaseCB",
+                    "trDisplayName": "Base class:",
+                    "type": "ComboBox",
+                    "data":
+                    {
+                        "items": [ { "trKey": "<Custom>", "value": "" },
+                                   "Object", "Component", "LogicComponent", "Drawable" ]
+                    }
+                },
+                {
+                    "name": "BaseEdit",
+                    "type": "LineEdit",
+                    "enabled": "%{JS: '%{BaseCB}' === ''}",
+                    "mandatory": false,
+                    "data":
+                    {
+                        "trText": "%{BaseCB}",
+                        "trDisabledText": "%{BaseCB}"
+                    }
+                },
+
+                {
+                    "name": "Sp2",
+                    "type": "Spacer",
+                    "data": { "size": 12 }
+                },
+
+                {
+                    "name": "HdrFileName",
+                    "type": "LineEdit",
+                    "trDisplayName": "Header file:",
+                    "mandatory": true,
+                    "data": { "trText": "%{JS: Cpp.classToFileName('%{Class}', '%{JS: Util.preferredSuffix('text/x-c++hdr')}')}" }
+                },
+                {
+                    "name": "SrcFileName",
+                    "type": "LineEdit",
+                    "trDisplayName": "Source file:",
+                    "mandatory": true,
+                    "data": { "trText": "%{JS: Cpp.classToFileName('%{Class}', '%{JS: Util.preferredSuffix('text/x-c++src')}')}" }
+                },
+                {
+                    "name": "Path",
+                    "type": "PathChooser",
+                    "trDisplayName": "Path:",
+                    "mandatory": true,
+                    "data":
+                    {
+                        "kind": "existingDirectory",
+                        "basePath": "%{InitialPath}",
+                        "path": "%{InitialPath}"
+                    }
+                }
+            ]
+        },
+        {
+            "trDisplayName": "Project Management",
+            "trShortTitle": "Summary",
+            "typeId": "Summary"
+        }
+    ],
+
+    "generators":
+    [
+        {
+            "typeId": "File",
+            "data":
+            [
+                {
+                    "source": "file.h",
+                    "target": "%{HdrPath}",
+                    "openInEditor": true
+                },
+                {
+                    "source": "file.cpp",
+                    "target": "%{SrcPath}",
+                    "openInEditor": true
+                }
+            ]
+        }
+    ]
+}

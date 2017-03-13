@@ -19,12 +19,11 @@ void %{CN}::RegisterObject(Context* context)
 %{CN}::%{CN}()
 @endif
 {
-
 }
 @if '%{Base}' === 'LogicComponent'
 
 void %{CN}::OnNodeSet(Node* node)
-{ (void)node;
+{ if(!node) return;
 }
 
 void %{CN}::Update(float timeStep)

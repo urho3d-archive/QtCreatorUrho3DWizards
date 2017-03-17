@@ -1,5 +1,7 @@
 %{Cpp:LicenseTemplate}\
+
 #include "%{HdrFileName}"
+
 %{JS: Cpp.openNamespaces('%{Class}')}
 
 @if '%{Base}' === 'LogicComponent'

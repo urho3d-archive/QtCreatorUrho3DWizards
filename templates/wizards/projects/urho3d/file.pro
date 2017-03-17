@@ -15,10 +15,37 @@ TEMPLATE = app
 CONFIG -= app_bundle
 CONFIG -= qt
 
-SOURCES += \\
-	%{CrsFileName}
 HEADERS += \\
-	%{HdrFileName}
+    luckey.h \\
+    mastercontrol.h \\
+    sceneobject.h \\
+@if %{SpawnMaster}
+    spawnmaster.h \\
+@endif
+@if %{InputMaster}
+    inputmaster.h \\
+    player.h \\
+    controllable.h \\
+@endif
+@if %{EffectMaster}
+    effectmaster.h \\
+@endif
+
+SOURCES += \\
+    luckey.cpp \\
+    mastercontrol.cpp \\
+    sceneobject.cpp \\
+@if %{SpawnMaster}
+    spawnmaster.cpp \\
+@endif
+@if %{InputMaster}
+    inputmaster.cpp \\
+    player.cpp \\
+    controllable.cpp \\
+@endif
+@if %{EffectMaster}
+    effectmaster.cpp \\
+@endif
 
 DISTFILES += \\
     LICENSE_TEMPLATE

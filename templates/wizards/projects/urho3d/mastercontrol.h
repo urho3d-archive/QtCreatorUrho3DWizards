@@ -12,14 +12,22 @@ class Node;
 class Scene;
 }
 
-#define MC MasterControl::GetInstance()
-
 class MasterControl : public Application
 {
     URHO3D_OBJECT(MasterControl, Application);
 public:
     MasterControl(Context* context);
     static MasterControl* GetInstance();
+
+    Scene* GetScene() const { return scene_; }
+
+@if %{InputMaster}
+    void AddPlayer();
+    Player* GetPlayer(int playerId) const;
+    Player* GetNearestPlayer(Vector3 pos);
+    Vector< SharedPtr<Player> > GetPlayers();
+    void RemovePlayer(Player *player);
+@endif
 
     // Setup before engine initialization. Modifies the engine paramaters.
     virtual void Setup();
@@ -30,6 +38,10 @@ public:
     void Exit();
 private:
     static MasterControl* instance_;
+    Scene* scene_;
+@if %{InputMaster}
+    Vector< SharedPtr<Player> > players_;
+@endif
 };
 
 #endif // MASTERCONTROL_H

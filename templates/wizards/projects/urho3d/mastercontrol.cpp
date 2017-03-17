@@ -1,4 +1,5 @@
 %{Cpp:LicenseTemplate}\
+
 #include "mastercontrol.h"
 
 URHO3D_DEFINE_APPLICATION_MAIN(MasterControl);
@@ -37,3 +38,36 @@ void MasterControl::Exit()
 {
     engine_->Exit();
 }
+
+@if %{InputMaster}
+Vector<SharedPtr<Player> > MasterControl::GetPlayers()
+{
+    return players_;
+}
+Player* MasterControl::GetPlayer(int playerId) const
+{
+    for (Player* p : players_) {
+
+        if (p->GetPlayerId() == playerId){
+            return p;
+        }
+    }
+    return nullptr;
+}
+Player* MasterControl::GetNearestPlayer(Vector3 pos)
+{
+    Player* nearest{};
+    for (Player* p : players_){
+        if (p->IsAlive()){
+
+            if (!nearest
+            || (Distance(GetSubsystem<InputMaster>()->GetControllableByPlayer(p->GetPlayerId())->GetPosition(), pos) <
+                Distance(GetSubsystem<InputMaster>()->GetControllableByPlayer(nearest->GetPlayerId())->GetPosition(), pos)))
+            {
+                nearest = p;
+            }
+        }
+    }
+    return nearest;
+}
+@endif

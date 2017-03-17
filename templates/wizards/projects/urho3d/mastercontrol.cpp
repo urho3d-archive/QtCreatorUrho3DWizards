@@ -1,5 +1,16 @@
 %{Cpp:LicenseTemplate}\
 
+@if %{EffectMaster}
+#include "effectmaster.h"
+@endif
+@if %{InputMaster}
+#include "inputmaster.h"
+#include "player.h"
+@endif
+@if %{SpawnMaster}
+#include "spawnmaster.h"
+@endif
+
 #include "mastercontrol.h"
 
 URHO3D_DEFINE_APPLICATION_MAIN(MasterControl);
@@ -29,6 +40,15 @@ void MasterControl::Setup()
 }
 void MasterControl::Start()
 {
+@if %{EffectMaster}
+    context_->RegisterSubsystem(new EffectMaster(context_));
+@endif
+@if %{InputMaster}
+    context_->RegisterSubsystem(new InputMaster(context_));
+@endif
+@if %{SpawnMaster}
+    context_->RegisterSubsystem(new SpawnMaster(context_));
+@endif
 }
 void MasterControl::Stop()
 {
@@ -61,8 +81,8 @@ Player* MasterControl::GetNearestPlayer(Vector3 pos)
         if (p->IsAlive()){
 
             if (!nearest
-            || (Distance(GetSubsystem<InputMaster>()->GetControllableByPlayer(p->GetPlayerId())->GetPosition(), pos) <
-                Distance(GetSubsystem<InputMaster>()->GetControllableByPlayer(nearest->GetPlayerId())->GetPosition(), pos)))
+            || (LucKey::Distance(GetSubsystem<InputMaster>()->GetControllableByPlayer(p->GetPlayerId())->GetWorldPosition(), pos) <
+                LucKey::Distance(GetSubsystem<InputMaster>()->GetControllableByPlayer(nearest->GetPlayerId())->GetWorldPosition(), pos)))
             {
                 nearest = p;
             }

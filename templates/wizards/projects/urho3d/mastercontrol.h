@@ -12,6 +12,10 @@ class Node;
 class Scene;
 }
 
+@if %{InputMaster}
+class Player;
+@endif
+
 class MasterControl : public Application
 {
     URHO3D_OBJECT(MasterControl, Application);

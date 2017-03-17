@@ -39,16 +39,6 @@ void Player::AddScore(int points)
     score_ += points;
 }
 
-bool Player::GetPosition(Vector3& position)
-{
-    if (Controllable* c = GetControllable()) {
-        
-        position = c->GetNode()->GetPosition();
-        return true;
-    }
-    return false;
-}
-
 Controllable* Player::GetControllable()
 {
     Controllable* controllable{ GetSubsystem<InputMaster>()->GetControllableByPlayer(playerId_) };

@@ -38,3 +38,8 @@ void SceneObject::PlaySample(Sound* sample, float gain)
         }
     }
 }
+
+Vector3 SceneObject::GetWorldPosition() const
+{
+    return node_->GetWorldPosition();
+}

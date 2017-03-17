@@ -15,6 +15,8 @@ public:
 
     virtual void Set(Vector3 position);
     virtual void OnNodeSet(Node *node);
+    
+    Vector3 GetWorldPosition() const;
 protected:
     Vector<SharedPtr<SoundSource> > sampleSources_;
     float randomizer_;

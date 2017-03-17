@@ -14,7 +14,6 @@ class Player : public Object
 public:
     Player(int playerId, Context* context);
 
-    Vector3 GetPosition();
     Controllable *GetControllable();
 
     int GetPlayerId() const { return playerId_; }

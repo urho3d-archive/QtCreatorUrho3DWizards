@@ -36,7 +36,7 @@ void MasterControl::Setup()
     engineParameters_[EP_WINDOW_TITLE] = "%{ProjectName}";
     engineParameters_[EP_WINDOW_ICON] = "icon.png";
     engineParameters_[EP_WORKER_THREADS] = false;
-    engineParameters_[EP_RESOURCE_PATHS] = "Resources;";
+    engineParameters_[EP_RESOURCE_PATHS] = "Data;CoreData;Resources;";
 }
 void MasterControl::Start()
 {

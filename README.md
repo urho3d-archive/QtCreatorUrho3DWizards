@@ -10,7 +10,7 @@ In case of the class wizard this will open a dialog allowing you to name your ne
 
 - A `Context*` is added to the constructor's parameters if a class is created with an Urho3D class - that is known by the wizard - as its base class.
 - For classes inheriting from `Drawable` it also adds `unsigned char drawableFlags`.
-- When `LogicComponent` is picked as a subclass `RegisterObject`, `OnNodeSet` and `Update` functions are added.
+- When `LogicComponent` is picked as superclass `RegisterObject`, `OnNodeSet` and `Update` functions are added.
 
 Both the header and source file will be added to the .pro file and version control.
 

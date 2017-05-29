@@ -22,7 +22,7 @@ public:
 
         if (recycle) {
             PODVector<Node*> correctType{};
-            MC->scene_->GetChildrenWithComponent<T>(correctType);
+            MC->GetScene()->GetChildrenWithComponent<T>(correctType);
             for (Node* n : correctType) {
 
                 if (!n->IsEnabled()) {
@@ -33,7 +33,7 @@ public:
         }
         if(!created) {
 
-            Node* spawnedNode{ MC->scene_->CreateChild(T::GetTypeStatic().ToString()) };
+            Node* spawnedNode{ MC->GetScene()->CreateChild(T::GetTypeStatic().ToString()) };
             created = spawnedNode->CreateComponent<T>();
             spawnedNode->SetEnabledRecursive(false);
         }

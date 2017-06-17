@@ -121,6 +121,7 @@ unsigned IntVector2ToHash(IntVector2 vec);
 
 float Delta(float lhs, float rhs, bool angle = false);
 float Distance(Vector3 from, Vector3 to, const bool planar = false, Vector3 normal = Vector3::UP);
+float DistanceToPlane(Vector3 from, Vector3 normal = Vector3::UP, Vector3 origin = Vector3::ZERO);
 IntVector2 Scale(const IntVector2 lhs, const IntVector2 rhs);
 Vector2 Rotate(const Vector2 vec2, const float angle);
 float RandomSign();

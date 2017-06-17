@@ -34,18 +34,23 @@ float LucKey::Delta(float lhs, float rhs, bool angle)
     }
 }
 
-float LucKey::Distance(const Vector3 from, const Vector3 to){
+float LucKey::Distance(Vector3 from, Vector3 to, const bool planar, Vector3 normal)
+{
+    if (planar) {
+        normal.Normalize();
+        from = from - from.DotProduct(normal) * normal;
+        to = to - to.DotProduct(normal) * normal;
+    }
     return (to - from).Length();
 }
-Vector3 LucKey::Scale(const Vector3 lhs, const Vector3 rhs) {
-    return Vector3(lhs.x_ * rhs.x_, lhs.y_ * rhs.y_, lhs.z_ * rhs.z_);
-}
-Urho3D::IntVector2 LucKey::Scale(const Urho3D::IntVector2 lhs, const Urho3D::IntVector2 rhs) {
+Urho3D::IntVector2 LucKey::Scale(const Urho3D::IntVector2 lhs, const Urho3D::IntVector2 rhs)
+{
     return Urho3D::IntVector2(lhs.x_ * rhs.x_, lhs.y_ * rhs.y_);
 }
-Vector2 LucKey::Rotate(const Vector2 vec2, const float angle){
-    float x{vec2.x_};
-    float y{vec2.y_};
+Vector2 LucKey::Rotate(const Vector2 vec2, const float angle)
+{
+    float x{ vec2.x_ };
+    float y{ vec2.y_ };
 
     float theta{M_DEGTORAD * angle};
 
@@ -57,29 +62,29 @@ Vector2 LucKey::Rotate(const Vector2 vec2, const float angle){
 
 float LucKey::RandomSign()
 {
-    return Random(2)*2-1;
+    return Random(2) * 2 - 1;
 }
 Color LucKey::RandomHairColor(bool onlyNatural)
 {
-    bool grey{!Random(23)};
-    bool dyed{!Random(23)};
+    bool grey{ !Random(23) };
+    bool dyed{ !Random(23) };
     Color hairColor{};
-    if (onlyNatural || (!dyed && !grey)){
+    if (onlyNatural || (!dyed && !grey)) {
         //Natural
         hairColor.FromHSV(Random(0.034f, 0.15f),
                           Random(0.34f, 0.65f),
                           Random(0.05f, 0.9f));
-    } else if (!dyed && grey){
+    } else if (!dyed && grey) {
         //Grey
         hairColor.FromHSV(Random(0.034f, 0.16f),
                           Random(0.0f, 0.05f),
                           Random(0.23f, 0.86f));
-    } else if (dyed && !grey){
+    } else if (dyed && !grey) {
         //Bright dye
-        hairColor.FromHSV(Random(6)*0.1666f,
+        hairColor.FromHSV(Random(6) * 0.1666f,
                           Random(0.6f, 0.9f),
                           Random(0.5f, 0.71f));
-    } else if (dyed && grey){
+    } else if (dyed && grey) {
         //Fake black
         hairColor.FromHSV(0.666f,
                           0.05f,

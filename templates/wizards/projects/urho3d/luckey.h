@@ -23,6 +23,7 @@
 #include <Urho3D/Audio/Audio.h>
 #include <Urho3D/Audio/Sound.h>
 #include <Urho3D/Audio/SoundSource.h>
+#include <Urho3D/Audio/SoundSource3D.h>
 #include <Urho3D/Container/HashBase.h>
 #include <Urho3D/Container/HashMap.h>
 #include <Urho3D/Container/Vector.h>
@@ -119,8 +120,7 @@ enum SixaxisButton {  SB_SELECT, SB_LEFTSTICK, SB_RIGHTSTICK, SB_START,
 unsigned IntVector2ToHash(IntVector2 vec);
 
 float Delta(float lhs, float rhs, bool angle = false);
-float Distance(const Vector3 from, const Vector3 to);
-Vector3 Scale(const Vector3 lhs, const Vector3 rhs);
+float Distance(Vector3 from, Vector3 to, const bool planar = false, Vector3 normal = Vector3::UP);
 IntVector2 Scale(const IntVector2 lhs, const IntVector2 rhs);
 Vector2 Rotate(const Vector2 vec2, const float angle);
 float RandomSign();

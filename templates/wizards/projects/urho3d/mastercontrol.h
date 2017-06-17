@@ -41,6 +41,8 @@ public:
     virtual void Stop();
     void Exit();
 private:
+    void CreateScene();
+
     static MasterControl* instance_;
     Scene* scene_;
 @if %{InputMaster}

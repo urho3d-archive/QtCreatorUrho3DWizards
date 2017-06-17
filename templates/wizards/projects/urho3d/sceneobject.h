@@ -1,4 +1,3 @@
-%{Cpp:LicenseTemplate}\
 
 #ifndef SCENEOBJECT_H
 #define SCENEOBJECT_H
@@ -15,10 +14,10 @@ public:
 
     virtual void Set(Vector3 position);
     virtual void OnNodeSet(Node *node);
-    
+
     Vector3 GetWorldPosition() const;
 protected:
-    Vector<SharedPtr<SoundSource> > sampleSources_;
+    Vector<SoundSource3D*> sampleSources_;
     float randomizer_;
 
     void Disable();
@@ -27,3 +26,4 @@ protected:
 };
 
 #endif // SCENEOBJECT_H
+

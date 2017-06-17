@@ -49,6 +49,30 @@ void MasterControl::Start()
 @if %{SpawnMaster}
     context_->RegisterSubsystem(new SpawnMaster(context_));
 @endif
+@if %{EffectMaster} || %{InputMaster} || %{SpawnMaster}
+
+@endif
+    CreateScene();
+}
+void MasterControl::CreateScene()
+{
+    scene_ = new Scene(context_);
+    scene_->CreateComponent<Octree>();
+    scene_->CreateComponent<PhysicsWorld>();
+    scene_->CreateComponent<DebugRenderer>();
+
+    //Light
+    Node* lightNode{ scene_->CreateChild("Light") };
+    lightNode->SetPosition(Vector3(2.0f, 3.0f, 1.0f));
+    lightNode->CreateComponent<Light>();
+    //Camera
+    Node* cameraNode{ scene_->CreateChild("Camera") };
+    cameraNode->SetPosition(Vector3::ONE * 5.0f);
+    cameraNode->LookAt(Vector3::ZERO);
+    Camera* camera{ cameraNode->CreateComponent<Camera>() };
+    RENDERER->SetViewport(0, new Viewport(context_, scene_, camera));
+    //Box!
+    scene_->CreateChild()->CreateComponent<StaticModel>()->SetModel(CACHE->GetResource<Model>("Models/Box.mdl"));
 }
 void MasterControl::Stop()
 {

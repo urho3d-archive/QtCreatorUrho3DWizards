@@ -38,15 +38,13 @@ float LucKey::Distance(Vector3 from, Vector3 to, const bool planar, Vector3 norm
 {
     Vector3 difference{ to - from };
     if (planar) {
-        normal.Normalize();
-        difference -= difference.DotProduct(normal) * normal;
+        difference -= difference.ProjectOntoAxis(normal) * normal.Normalized();
     }
     return difference.Length();
 }
 float LucKey::DistanceToPlane(Vector3 from, Vector3 normal, Vector3 origin)
 {
-    normal.Normalize();
-    return Abs((origin - from).DotProduct(normal));
+    return Abs((from - origin).ProjectOntoAxis(normal));
 }
 
 Urho3D::IntVector2 LucKey::Scale(const Urho3D::IntVector2 lhs, const Urho3D::IntVector2 rhs)
